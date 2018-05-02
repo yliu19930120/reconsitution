@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+
+	<property name="logback.log.active" value="logs" />
+	<property name="logback.log.archived" value="logs" />
+	<property name="project.name" value="jersey" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyyMMdd HH:mm:ss.SSS} %-5level %logger{100} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 基于日期时间的输出重定向 -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logback.log.active}/${project.name}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 每天保存一次日志信息 -->
+			<fileNamePattern>${logback.log.archived}/${project.name}_%d{yyyy_MM_dd}.log
+			</fileNamePattern>
+			<!-- 只保存最近三天的日志记录 -->
+			<maxHistory>720</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyyMMdd HH:mm:ss.SSS} %-5level %logger{60} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.restService" level="debug" additivity="false">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
+	<!-- 配置其它所有组件的日志等级 -->
+	<root level="info">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
