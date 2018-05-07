@@ -1,20 +1,23 @@
 package restService.jersey.bean;
 
 
-import java.util.List;
 
-public class User extends CommonBean{
+import restService.jersey.common.BaseBean;
 
-	private Long id;
+public class User extends BaseBean{
+
+	private String id;
 	private String account;
 	private String name;
 	private String password;
 	private String email;
-	private Long phone;
+	private String phone;
 
-	private List<Role> roles;
-	public Long getId() {
+	public String getId() {
 		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getAccount() {
 		return account;
@@ -28,13 +31,7 @@ public class User extends CommonBean{
 	public String getEmail() {
 		return email;
 	}
-	public Long getPhone() {
-		return phone;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public void setAccount(String account) {
 		this.account = account;
 	}
@@ -47,16 +44,11 @@ public class User extends CommonBean{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void setPhone(Long phone) {
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public List<Role> getRoles() {
-		return roles;
-	}
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
 
-	
-	
 }

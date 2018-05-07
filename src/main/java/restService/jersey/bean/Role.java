@@ -2,31 +2,26 @@ package restService.jersey.bean;
 
 import java.util.List;
 
-public class Role extends CommonBean{
+import restService.jersey.common.BaseBean;
 
-	private Long id;
+public class Role extends BaseBean{
+
+	private String id;
 	private String name;
 	private String code;
-	private List<Menu> menus;
-	private Department department;
-	public Long getId() {
-		return id;
-	}
+	private List<Long> menuIds;
+	private List<String> userIds;
 	public String getName() {
 		return name;
 	}
 	public String getCode() {
 		return code;
 	}
-
-	public List<Menu> getMenus() {
-		return menus;
+	public List<Long> getMenuIds() {
+		return menuIds;
 	}
-	public void setMenus(List<Menu> menus) {
-		this.menus = menus;
-	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setMenuIds(List<Long> menuIds) {
+		this.menuIds = menuIds;
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -34,12 +29,17 @@ public class Role extends CommonBean{
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public Department getDepartment() {
-		return department;
+	public List<String> getUserIds() {
+		return userIds;
 	}
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setUserIds(List<String> userIds) {
+		this.userIds = userIds;
 	}
-	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 }

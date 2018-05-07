@@ -10,8 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import restService.jersey.mycol.MycolDao;
-import restService.jersey.util.JsonUtil;
+import com.mongodb.util.JSON;
+
 
 /**
  * Root resource (exposed at "myresource" path)
@@ -29,7 +29,7 @@ public class MyResource {
     public String getIt() {
     	Map<String,Object> map = new HashMap<>();
     	map.put("UserName", "刘永华");
-       return JsonUtil.getGson().toJson(map);
+       return JSON.serialize(map);
     }
     
     @POST
@@ -37,6 +37,6 @@ public class MyResource {
     public String getWord(@PathParam("id") String id) {
     	Map<String,Object> map = new HashMap<>();
     	map.put("Word", "nihao");
-       return JsonUtil.getGson().toJson(map);
+       return JSON.serialize(map);
     }
 }

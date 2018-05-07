@@ -1,13 +1,9 @@
 package restService.jersey.service;
 
-import org.bson.conversions.Bson;
-
 import restService.jersey.bean.User;
+import restService.jersey.common.BaseService;
 
-public interface UserService {
+public interface UserService extends BaseService<User>{
 
-	
-	public User getUser(Bson filter);
-	
-	public void save(User user);
+
 }

@@ -1,15 +1,22 @@
 package restService.jersey.util;
 
 
+import java.beans.IntrospectionException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.gson.Gson;
+
+
+import com.alibaba.fastjson.JSONObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
+
 
 
 /**
@@ -34,16 +41,13 @@ public static Logger log=LoggerFactory.getLogger( MongoUtil.class );
 	}
 
 	public static <T> T adaptToJava( Document t, Class<T> classOfT ) {
-		Gson gson=JsonUtil.getGson();
-		String json=gson.toJson( t );
 		
-		return gson.fromJson( json, classOfT );
+		return new JSONObject(t).toJavaObject(classOfT);
 	}
 	
-	public static <T> T adaptToJava( Document t, Class<T> classOfT, Gson gson ) {
-		
-		String json=gson.toJson( t );
-		return gson.fromJson( json, classOfT );
+	public static<T> Document adaptToDocuemnt(T java){
+		JSONObject json = (JSONObject) JSONObject.toJSON(java);
+		    return new Document(json);
 	}
 	
 	public static DB getDB(String db) {
