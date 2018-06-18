@@ -1,0 +1,76 @@
+package restService.jersey.service;
+
+import java.util.List;
+import org.bson.conversions.Bson;
+import restService.jersey.bean.${beanName};
+import restService.jersey.dao.${beanName}Dao;
+
+public class ${beanName}ServiceImpl implements ${beanName}Service{
+
+	private final static ${beanName}ServiceImpl ${beanname}Service = new ${beanName}ServiceImpl();
+	
+	private ${beanName}Dao ${beanname}Dao = ${beanName}Dao.get${beanName}Dao();
+	
+	public static ${beanName}ServiceImpl get${beanName}Service(){
+		return ${beanname}Service;
+	}
+	
+	private ${beanName}ServiceImpl() {
+	}
+	@Override
+	public void saveOrUpdate(${beanName} java) {
+		${beanname}Dao.saveOrUpdate(java);
+	}
+
+	@Override
+	public void saveMany(List<${beanName}> list) {
+		${beanname}Dao.saveMany(list);
+		
+	}
+
+	@Override
+	public void deleteByUnique(${beanName} java) {
+		${beanname}Dao.deleteByUnique(java);
+		
+	}
+
+	@Override
+	public ${beanName} selectByUnique(${beanName} java) {
+		return ${beanname}Dao.selectByUnique(java, ${beanName}.class);
+	}
+
+	@Override
+	public List<${beanName}> select(${beanName} filter, Bson sort) {
+		
+		return ${beanname}Dao.select(filter, sort, ${beanName}.class);
+	}
+
+	@Override
+	public List<${beanName}> select(${beanName} filter) {
+		return ${beanname}Dao.select(filter, ${beanName}.class);
+	}
+
+	@Override
+	public List<${beanName}> select(Bson filter, Bson sort) {
+		return ${beanname}Dao.select(filter, sort,${beanName}.class);
+	}
+
+	@Override
+	public List<${beanName}> select(Bson filter) {
+		
+		return ${beanname}Dao.select(filter, ${beanName}.class);
+	}
+
+	@Override
+	public ${beanName} selectOne(${beanName} filter) {
+		
+		return ${beanname}Dao.selectOne(filter, ${beanName}.class);
+	}
+
+	@Override
+	public ${beanName} selectOne(Bson filter) {
+
+		return ${beanname}Dao.selectOne(filter, ${beanName}.class);
+	}
+
+}

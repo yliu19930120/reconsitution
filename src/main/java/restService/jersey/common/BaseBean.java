@@ -2,15 +2,16 @@ package restService.jersey.common;
 
 import java.util.Date;
 
-import com.mongodb.ReflectionDBObject;
-
-public class BaseBean{
+public class BaseBean {
 	
+	public final static Integer NOT_USE =0;
+	public final static Integer IN_USE = 1;
+
+	private String id;
 	private Integer status;
 	private Date creatDate;
 	private String createUser;
 	private Date updateDate;
-	private Integer order;
 	private String updateUser;
 	public Integer getStatus() {
 		return status;
@@ -42,11 +43,11 @@ public class BaseBean{
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-	public Integer getOrder() {
-		return order;
+	public String getId() {
+		return id;
 	}
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 }

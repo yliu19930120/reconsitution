@@ -28,7 +28,7 @@ public class MongoUtil {
 	
 public static Logger log=LoggerFactory.getLogger( MongoUtil.class );
 	
-	public static final String DB_NAME_DEFAULT="credit";
+	public static final String DB_NAME_DEFAULT="note";
 
 	private static final String DB_HOST="127.0.0.1";
 
