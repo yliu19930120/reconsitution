@@ -1,8 +1,0 @@
-package restService.jersey.service;
-
-import restService.jersey.bean.${beanName};
-import restService.jersey.common.BaseService;
-
-public interface ${beanName}Service extends BaseService<${beanName}>{
-
-}
