@@ -1,6 +1,8 @@
 package jersey;
 
 
+import org.junit.Test;
+
 import restService.jersey.bean.File;
 import restService.jersey.bean.Folder;
 import restService.jersey.bean.RootNode;
@@ -12,7 +14,7 @@ public class DocServiceTest {
 
 	NodeService nodeSetvice = NodeServiceImpl.getNodeService();
 	
-//	@Test
+	@Test
 	public void buildRoot(){
 		RootNode rootFolder = new RootNode();
 		rootFolder.setCreateUser("yliu");
