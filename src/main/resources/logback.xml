@@ -8,7 +8,7 @@
 	<!-- 基于日期时间的输出重定向 -->
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>‪logs\jersey.log</file>
+		<file>‪jersey.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- 每天保存一次日志信息 -->
 			<fileNamePattern>logs/all_%d{yyyy_MM_dd}.log

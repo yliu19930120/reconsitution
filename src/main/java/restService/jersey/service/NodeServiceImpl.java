@@ -2,13 +2,8 @@ package restService.jersey.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bson.Document;
 import org.bson.conversions.Bson;
-import restService.jersey.bean.File;
-import restService.jersey.bean.Folder;
 import restService.jersey.bean.Node;
-import restService.jersey.bean.RootNode;
 import restService.jersey.constant.Constant;
 import restService.jersey.constant.NodeType;
 import restService.jersey.dao.NodeDao;
@@ -81,29 +76,68 @@ public class NodeServiceImpl implements NodeService{
 
 		return nodeDao.selectOne(filter, Node.class);
 	}
-	
+
+
 	@Override
-	public void buildRoorFolder(RootNode root) {
-		root.setNodeName(Constant.ROOT_FOLDER_NAME);
-		root.setNodeType(NodeType.ROOT.getTypeCode());
-		root.setChildren(new ArrayList<>());
-        saveOrUpdate(root);
-	}
-	
-	@Override
-	public void newFolder(String rootId, Folder folder) {
-		folder.setNodeType(NodeType.FOLDER.getTypeCode());
-		folder.setId(IdUtil.getId());
-		if(folder.getpId()==null)folder.setpId(rootId);
-		nodeDao.addNode(rootId, folder);
+	public String buildRootNode(Node node) {
+		String id = IdUtil.getId();
+		node.setChildren(new ArrayList<>());
+		node.setNodeName(Constant.ROOT_FOLDER_NAME);
+		node.setDescription(Constant.DEFAULT_PLACE);
+		node.setTag(Constant.ROOT_FOLDER_TAG);
+		node.setId(id);
+		node.setPid(Constant.TOP_PID);
+		node.setNodeType(NodeType.ROOT.getTypeCode());
+		node.setPath(Constant.DEFAULT_PLACE);
+		nodeDao.saveOrUpdate(node);
+		return id;
 	}
 
 	@Override
-	public void newFile(String rootId, File file) {
-		file.setNodeType(NodeType.FILE.getTypeCode());
-		file.setId(IdUtil.getId());
-		if(file.getpId()==null)file.setpId(rootId);
-		nodeDao.addNode(rootId, file);
+	public String newFolder(String rootId, Node node) {
+		String id = IdUtil.getId();
+		node.setChildren(new ArrayList<>());
+		node.setDescription(Constant.DEFAULT_PLACE);
+		node.setTag(Constant.DEFAULT_PLACE);
+		node.setId(id);
+		node.setNodeType(NodeType.FOLDER.getTypeCode());
+		node.setPath(Constant.DEFAULT_PLACE);
+		if(node.getPid()==null){
+			node.setPid(rootId);
+		}
+		nodeDao.addNode(rootId, node);
+		return id;
+	}
+
+	@Override
+	public String newFile(String rootId, Node node) {
+		String id = IdUtil.getId();
+		node.setDescription(Constant.DEFAULT_PLACE);
+		node.setTag(Constant.DEFAULT_PLACE);
+		node.setId(id);
+		node.setNodeType(NodeType.FILE.getTypeCode());
+		node.setPath(Constant.DEFAULT_PLACE);
+		if(node.getPid()==null){
+			node.setPid(rootId);
+		}
+		nodeDao.addNode(rootId, node);
+		return id;
+	}
+
+	@Override
+	public void deleteNode(String rootId, String id) {
+		nodeDao.deleteNode(rootId, id);
+	}
+
+	@Override
+	public Node selectToTree(String id) {
+		Node node = selectById(id);
+		return node;
 	}
 	
+	private Node selectById(String id){
+		Node node = new Node();
+		node.setId(id);
+		return nodeDao.selectByUnique(node, Node.class);
+	}
 }

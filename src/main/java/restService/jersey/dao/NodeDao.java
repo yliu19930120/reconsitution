@@ -58,4 +58,12 @@ public class NodeDao extends BaseDao<Node>{
 		log.info("向表:{}更新{},更新条件{}",getCollectionName(),updateDoc,filter);
 		getCollection().updateOne(filter, updateDoc);
 	}
+	
+	public void deleteNode(String rootId,String id){
+		Bson filter = new Document("id",rootId);
+		Bson updateDoc = new Document("$pull",new Document("children",new Document("id",id)));
+		log.info("向表:{}更新{},更新条件{}",getCollectionName(),updateDoc,filter);
+		getCollection().updateOne(filter, updateDoc);
+	}
+	
 }

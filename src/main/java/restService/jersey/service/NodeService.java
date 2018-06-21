@@ -1,18 +1,19 @@
 package restService.jersey.service;
 
 
-import restService.jersey.bean.File;
-import restService.jersey.bean.Folder;
+
 import restService.jersey.bean.Node;
-import restService.jersey.bean.RootNode;
 import restService.jersey.common.BaseService;
 
 public interface NodeService extends BaseService<Node>{
 
-	public void buildRoorFolder(RootNode root);
+	public String buildRootNode(Node node);
 	
-	public void newFolder(String rootId,Folder folder);
+	public String newFolder(String rootId,Node node);
 	
-	public void newFile(String rootId,File file);
-
+	public String newFile(String rootId,Node node);
+	
+	public void deleteNode(String rootId,String id);
+	
+	public Node selectToTree(String id);
 }
