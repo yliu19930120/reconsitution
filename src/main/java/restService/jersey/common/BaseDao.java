@@ -47,6 +47,12 @@ public abstract class BaseDao<T extends BaseBean> {
 		}
 	}
 	
+	public void save(T java){
+		defaultBean(java);
+		Document doc = MongoUtil.adaptToDocuemnt(java);
+		getLogger().info("向表:{}写入 {}",getCollectionName(),doc);
+		getCollection().insertOne(doc);
+	}
 	public void saveMany(List<T> list){
 		List<Document> documents = new ArrayList<>();
 		getLogger().info("向表:{}批量写入",getCollectionName());

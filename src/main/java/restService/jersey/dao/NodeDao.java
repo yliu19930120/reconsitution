@@ -1,7 +1,5 @@
 package restService.jersey.dao;
 
-import java.util.Date;
-
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.slf4j.Logger;
@@ -48,22 +46,24 @@ public class NodeDao extends BaseDao<Node>{
 		Document doc = getCollection().find(filter).first();
 		return doc;
 	}
-	
-	public void addNode(String rootId,Node java){
-		java.setCreatDate(new Date());
-		java.setUpdateDate(new Date());
-		java.setStatus(Node.IN_USE);
-		Bson filter = new Document("id",rootId);
-		Bson updateDoc = new Document("$push",new Document("children",MongoUtil.adaptToDocuemnt(java)));
-		log.info("向表:{}更新{},更新条件{}",getCollectionName(),updateDoc,filter);
-		getCollection().updateOne(filter, updateDoc);
+	/**
+	 * 添加子节点
+	 * @param pId 父节点Id
+	 * @param id  添加的子节点Id
+	 */
+	public void setChild(String pId,String id){
+		log.info("向节点:{}添加子节点:{}",pId,id);
+		getCollection().updateOne(new Document("id",pId),
+				new Document("$set",new Document("firstChild",id)));
 	}
-	
-	public void deleteNode(String rootId,String id){
-		Bson filter = new Document("id",rootId);
-		Bson updateDoc = new Document("$pull",new Document("children",new Document("id",id)));
-		log.info("向表:{}更新{},更新条件{}",getCollectionName(),updateDoc,filter);
-		getCollection().updateOne(filter, updateDoc);
+	/**
+	 * 
+	 * @param id 
+	 * @param nextBrotherId 下一个兄弟节点Id
+	 */
+	public void setNextBrother(String id,String nextBrotherId){
+		log.info("向节点:{}添加下一个兄弟节点:{}",id,nextBrotherId);
+		getCollection().updateOne(new Document("id",id),
+				new Document("$set",new Document("nextBrother",nextBrotherId)));
 	}
-	
 }

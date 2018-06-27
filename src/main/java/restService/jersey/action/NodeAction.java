@@ -51,7 +51,7 @@ public class NodeAction {
     	file.setId(id);
     	file.setNodeName(name);
     	log.info("在根目录:{}新建文件夹:{},文件Id:{}",rootId,name,id);
-    	nodeSetvice.newFile(rootId, new Node());
+//    	nodeSetvice.newFile(rootId, new Node());
     	return JSON.toJSONString(R.ok().put("id", id));
     	}
 }

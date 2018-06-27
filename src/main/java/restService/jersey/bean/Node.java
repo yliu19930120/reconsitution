@@ -1,6 +1,5 @@
 package restService.jersey.bean;
 
-import java.util.List;
 
 import restService.jersey.common.BaseBean;
 
@@ -10,12 +9,9 @@ public class Node extends BaseBean{
 	private Integer nodeType;
 	private String tag;
 	private String description;
-	private String pid;
 	private String path;
-	private List<Node> children;
-
-
-	
+	private String firstChild;
+	private String nextBrother;
 	public String getNodeName() {
 		return nodeName;
 	}
@@ -34,14 +30,8 @@ public class Node extends BaseBean{
 	public String getDescription() {
 		return description;
 	}
-	public String getPid() {
-		return pid;
-	}
 	public String getPath() {
 		return path;
-	}
-	public List<Node> getChildren() {
-		return children;
 	}
 	public void setTag(String tag) {
 		this.tag = tag;
@@ -49,14 +39,20 @@ public class Node extends BaseBean{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public void setChildren(List<Node> children) {
-		this.children = children;
+	public String getFirstChild() {
+		return firstChild;
+	}
+	public String getNextBrother() {
+		return nextBrother;
+	}
+	public void setFirstChild(String firstChild) {
+		this.firstChild = firstChild;
+	}
+	public void setNextBrother(String nextBrother) {
+		this.nextBrother = nextBrother;
 	}
 	
 }

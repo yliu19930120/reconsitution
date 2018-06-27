@@ -81,12 +81,10 @@ public class NodeServiceImpl implements NodeService{
 	@Override
 	public String buildRootNode(Node node) {
 		String id = IdUtil.getId();
-		node.setChildren(new ArrayList<>());
 		node.setNodeName(Constant.ROOT_FOLDER_NAME);
 		node.setDescription(Constant.DEFAULT_PLACE);
 		node.setTag(Constant.ROOT_FOLDER_TAG);
 		node.setId(id);
-		node.setPid(Constant.TOP_PID);
 		node.setNodeType(NodeType.ROOT.getTypeCode());
 		node.setPath(Constant.DEFAULT_PLACE);
 		nodeDao.saveOrUpdate(node);
@@ -94,50 +92,66 @@ public class NodeServiceImpl implements NodeService{
 	}
 
 	@Override
-	public String newFolder(String rootId, Node node) {
+	public String newNode(String pId,Node node) {
 		String id = IdUtil.getId();
-		node.setChildren(new ArrayList<>());
 		node.setDescription(Constant.DEFAULT_PLACE);
 		node.setTag(Constant.DEFAULT_PLACE);
 		node.setId(id);
 		node.setNodeType(NodeType.FOLDER.getTypeCode());
 		node.setPath(Constant.DEFAULT_PLACE);
-		if(node.getPid()==null){
-			node.setPid(rootId);
+		
+		Node fatherNode = selectById(pId);
+		String childId = fatherNode.getFirstChild();
+		
+		//如果没有子节点，添加子节点
+		if(childId==null){
+			nodeDao.setChild(pId, id);
+		}else {
+			String lastNodeId = null;
+			Node childNode = selectById(childId);
+			String nextBrotherId = childNode.getNextBrother();
+			if(nextBrotherId==null){
+				lastNodeId = childNode.getId();
+			}else{
+				while(nextBrotherId!=null){
+					Node nextBrothrer = selectById(nextBrotherId);
+					nextBrotherId = nextBrothrer.getNextBrother();
+					lastNodeId = nextBrothrer.getId();
+				}
+			}
+
+			nodeDao.setNextBrother(lastNodeId, id);
 		}
-		nodeDao.addNode(rootId, node);
+		nodeDao.save(node);
 		return id;
 	}
 
 	@Override
-	public String newFile(String rootId, Node node) {
-		String id = IdUtil.getId();
-		node.setDescription(Constant.DEFAULT_PLACE);
-		node.setTag(Constant.DEFAULT_PLACE);
-		node.setId(id);
-		node.setNodeType(NodeType.FILE.getTypeCode());
-		node.setPath(Constant.DEFAULT_PLACE);
-		if(node.getPid()==null){
-			node.setPid(rootId);
+	public List<Node> selectNodesByPid(String id) {
+		List<Node> list = new ArrayList<>();
+		String childId = selectById(id).getFirstChild();
+		if(childId!=null){
+			Node childNode = selectById(childId);
+			list.add(childNode);
+			String nextBrotherId = childNode.getNextBrother();
+			while(nextBrotherId!=null){
+				childNode = selectById(nextBrotherId);
+				nextBrotherId = childNode.getNextBrother();
+				list.add(childNode);
+			}
 		}
-		nodeDao.addNode(rootId, node);
-		return id;
-	}
-
-	@Override
-	public void deleteNode(String rootId, String id) {
-		nodeDao.deleteNode(rootId, id);
-	}
-
-	@Override
-	public Node selectToTree(String id) {
-		Node node = selectById(id);
-		return node;
+		return list;
 	}
 	
 	private Node selectById(String id){
 		Node node = new Node();
 		node.setId(id);
 		return nodeDao.selectByUnique(node, Node.class);
+	}
+
+	@Override
+	public void deleteNode(String pId, String id) {
+		// TODO Auto-generated method stub
+		
 	}
 }
