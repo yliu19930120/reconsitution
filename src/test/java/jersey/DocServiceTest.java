@@ -2,7 +2,6 @@ package jersey;
 
 
 import java.util.List;
-
 import org.junit.Test;
 import restService.jersey.bean.Node;
 import restService.jersey.constant.NodeType;
@@ -13,15 +12,17 @@ import restService.jersey.util.JsonUtil;
 
 
 public class DocServiceTest {
-
+	
 	NodeService nodeSetvice = NodeServiceImpl.getNodeService();
 	
 	@Test
 	public void test(){
 //		String id = buildRoot();
-		String id = "17029dfb-e154-4e17-9d37-9aab235644d5";
+		String id = "4a5afcd0-0e41-46a4-b422-b0369e832d34";
 		newFolder(id);
-		selectById(id);
+//		selectById("24366406-7da7-4207-a543-9e8515afb363");
+		deleteTest(id);
+		selectById("9d433bbb-7ae6-4d85-aa7e-3fe51d4eb196");
 	}
 	
 	
@@ -44,7 +45,11 @@ public class DocServiceTest {
 	}
 	
 	public void selectById(String id){
-		List<Node> list = nodeSetvice.selectNodesByPid(id);
+		List<Node> list = nodeSetvice.listNodes(id);
 		System.out.println(JsonUtil.toJson(list));
+	}
+	
+	public void deleteTest(String pId) {
+		nodeSetvice.deleteNode(pId);
 	}
 }

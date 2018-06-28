@@ -13,7 +13,11 @@ public interface NodeService extends BaseService<Node>{
 	
 	public String newNode(String pId,Node node);
 	
-	public void deleteNode(String pId,String id);
+	public void deleteNode(String id);
 	
-	public List<Node> selectNodesByPid(String pId);
+	public List<Node> listNodes(String pId);
+	
+	public void recursionDelete(String id);
+	
+	public void copyNode(String id,String targetId);
 }

@@ -2,6 +2,8 @@ package restService.jersey.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.bson.Document;
 import org.bson.conversions.Bson;
 import restService.jersey.bean.Node;
 import restService.jersey.constant.Constant;
@@ -102,7 +104,6 @@ public class NodeServiceImpl implements NodeService{
 		
 		Node fatherNode = selectById(pId);
 		String childId = fatherNode.getFirstChild();
-		
 		//如果没有子节点，添加子节点
 		if(childId==null){
 			nodeDao.setChild(pId, id);
@@ -125,33 +126,56 @@ public class NodeServiceImpl implements NodeService{
 		nodeDao.save(node);
 		return id;
 	}
+	public Node selectById(String id){
+
+		return nodeDao.selectById(id);
+	}
 
 	@Override
-	public List<Node> selectNodesByPid(String id) {
-		List<Node> list = new ArrayList<>();
-		String childId = selectById(id).getFirstChild();
-		if(childId!=null){
-			Node childNode = selectById(childId);
-			list.add(childNode);
-			String nextBrotherId = childNode.getNextBrother();
-			while(nextBrotherId!=null){
-				childNode = selectById(nextBrotherId);
-				nextBrotherId = childNode.getNextBrother();
-				list.add(childNode);
+	public void deleteNode(String id) {
+			Node node = selectById(id);
+			String nextId = node.getNextBrother();
+			nodeDao.setChild(new Document("firstChild",id), nextId);
+			nodeDao.setNextBrother(new Document("nextBrother",id), nextId);
+			recursionDelete(id);
+	}
+
+	@Override
+	public void recursionDelete(String id) {
+			List<Node> brothers = listNodes(id);
+			nodeDao.deleteById(id);
+			brothers.forEach(bro->{
+						recursionDelete(bro.getId());
+			});
+	}
+	@Override
+	public List<Node> listNodes(String pId){
+		Node child = nodeDao.getChild(pId);
+		List<Node> brothers = new ArrayList<>();
+		if(child!=null){
+			brothers.add(child);
+			Node brother = nodeDao.getNextBrother(child.getId());
+			while(brother!=null) {
+				brothers.add(brother);
+				brother = nodeDao.getNextBrother(brother.getId());
 			}
 		}
-		return list;
-	}
-	
-	private Node selectById(String id){
-		Node node = new Node();
-		node.setId(id);
-		return nodeDao.selectByUnique(node, Node.class);
+		return brothers;
 	}
 
+
 	@Override
-	public void deleteNode(String pId, String id) {
-		// TODO Auto-generated method stub
-		
+	public void copyNode(String id, String targetId) {
+		Node node = selectById(id);
+		List<Node> brothers = listNodes(id);
+		targetId = copyNode(node, targetId);
+		for (Node bro : brothers) {
+			copyNode(bro.getId(), targetId);
+		}
+	}
+	private String copyNode(Node node,String targetId) {
+		node.setId(IdUtil.getId());
+		newNode(targetId, node);
+		return node.getId();
 	}
 }
