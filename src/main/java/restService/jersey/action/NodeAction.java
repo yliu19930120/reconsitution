@@ -14,7 +14,6 @@ import restService.jersey.bean.Node;
 import restService.jersey.common.R;
 import restService.jersey.service.NodeService;
 import restService.jersey.service.NodeServiceImpl;
-import restService.jersey.util.IdUtil;
 import restService.jersey.util.JsonUtil;
 
 
@@ -34,11 +33,8 @@ public class NodeAction {
     @POST
     @Path("buildRoot")
     public String getIt() {
-       String id = IdUtil.getId();
-       Node root = new Node();
-       root.setId(id);
+       String id = nodeSetvice.buildRootNode(new Node());
        log.info("添加根目录id:{}",id);
-       nodeSetvice.buildRootNode(root);
        return R.ok().put("id", id).toJson();
     }
     
