@@ -140,8 +140,8 @@ public class NodeServiceImpl implements NodeService{
 			recursionDelete(id);
 	}
 
-	@Override
-	public void recursionDelete(String id) {
+
+	private void recursionDelete(String id) {
 			List<Node> brothers = listNodes(id);
 			nodeDao.deleteById(id);
 			brothers.forEach(bro->{

@@ -3,6 +3,8 @@ package restService.jersey.common;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSON;
+
 public class R extends HashMap<String, Object>{
 
 	/**
@@ -48,5 +50,8 @@ public class R extends HashMap<String, Object>{
 	public R put(String key, Object value) {
 		super.put(key, value);
 		return this;
+	}
+	public String toJson(){
+		return JSON.toJSONString(this);
 	}
 }
