@@ -18,4 +18,6 @@ public interface NodeService extends BaseService<Node>{
 	public List<Node> listNodes(String pId);
 	
 	public void copyNode(String id,String targetId);
+	
+	public List<Node> allRootNodes();
 }

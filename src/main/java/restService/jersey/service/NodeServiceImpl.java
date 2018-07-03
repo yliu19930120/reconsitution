@@ -178,4 +178,10 @@ public class NodeServiceImpl implements NodeService{
 		newNode(targetId, node);
 		return node.getId();
 	}
+
+	@Override
+	public List<Node> allRootNodes() {
+		Bson filter = new Document("nodeType",0);
+		return nodeDao.select(filter, Node.class);
+	}
 }
