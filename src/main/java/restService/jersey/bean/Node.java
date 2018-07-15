@@ -12,6 +12,7 @@ public class Node extends BaseBean{
 	private String path;
 	private String firstChild;
 	private String nextBrother;
+	private String father;
 	public String getNodeName() {
 		return nodeName;
 	}
@@ -53,6 +54,12 @@ public class Node extends BaseBean{
 	}
 	public void setNextBrother(String nextBrother) {
 		this.nextBrother = nextBrother;
+	}
+	public String getFather() {
+		return father;
+	}
+	public void setFather(String father) {
+		this.father = father;
 	}
 	
 }

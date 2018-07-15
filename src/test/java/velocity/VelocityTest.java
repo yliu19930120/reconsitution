@@ -23,7 +23,7 @@ public class VelocityTest {
 	
 	@Test
 	public void build() {     
-		generatorCode("Node");
+		generatorCode("User");
 	}
 	
 	public static List<String> getTemplates(){

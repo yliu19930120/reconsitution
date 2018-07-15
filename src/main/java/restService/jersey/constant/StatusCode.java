@@ -3,7 +3,8 @@ package restService.jersey.constant;
 public enum StatusCode {
 
 	SUCC(0,"请求成功"),
-	FAILED(500,"请求失败");
+	FAILED(500,"请求失败"),
+	NOT_LOGIN(401,"未登录");
 	
 	private StatusCode(Integer code, String msg) {
 		this.code = code;

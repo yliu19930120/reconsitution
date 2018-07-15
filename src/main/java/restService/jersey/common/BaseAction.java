@@ -1,13 +1,29 @@
 package restService.jersey.common;
 
-import com.mongodb.util.JSON;
 
-import restService.jersey.constant.StatusCode;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Context;
 
-public class BaseAction {
+import restService.jersey.bean.User;
 
 
-	public String succ(){
-		return JSON.serialize(StatusCode.SUCC);
+public class BaseAction{
+	
+	@Context
+	private HttpServletRequest request;
+
+	@Context
+	private HttpServletResponse response;
+		
+	public User getLoginUser(){
+		return (User)request.getSession().getAttribute("loginUser");
 	}
+	public void setLoginUser(User user){
+		request.getSession().setAttribute("loginUser", user);
+	}
+	public void removeUser(){
+		request.getSession().removeAttribute("loginUser");
+	}
+	
 }

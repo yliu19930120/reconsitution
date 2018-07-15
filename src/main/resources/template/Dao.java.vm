@@ -32,7 +32,7 @@ public class ${beanName}Dao extends BaseDao<${beanName}>{
 
 	@Override
 	public Bson getUniqueIndex(${beanName} java) {
-		return new Document("${beanname}Name",java.get${beanName}Name());
+		return new Document("${beanname}Id",java.get${beanName}Id());
 	}
 
 	@Override

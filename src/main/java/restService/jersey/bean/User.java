@@ -6,18 +6,18 @@ import restService.jersey.common.BaseBean;
 
 public class User extends BaseBean{
 
-	private String id;
 	private String account;
 	private String name;
 	private String password;
 	private String email;
 	private String phone;
-
-	public String getId() {
-		return id;
+	private String rootNode;
+	
+	public String getRootNode() {
+		return rootNode;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setRootNode(String rootNode) {
+		this.rootNode = rootNode;
 	}
 	public String getAccount() {
 		return account;

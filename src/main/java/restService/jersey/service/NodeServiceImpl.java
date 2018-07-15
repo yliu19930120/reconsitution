@@ -89,6 +89,7 @@ public class NodeServiceImpl implements NodeService{
 		node.setId(id);
 		node.setNodeType(NodeType.ROOT.getTypeCode());
 		node.setPath(Constant.DEFAULT_PLACE);
+		node.setFather(id);
 		nodeDao.saveOrUpdate(node);
 		return id;
 	}
@@ -101,7 +102,7 @@ public class NodeServiceImpl implements NodeService{
 		node.setId(id);
 		node.setNodeType(NodeType.FOLDER.getTypeCode());
 		node.setPath(Constant.DEFAULT_PLACE);
-		
+		node.setFather(pId);
 		Node fatherNode = selectById(pId);
 		String childId = fatherNode.getFirstChild();
 		//如果没有子节点，添加子节点
@@ -183,5 +184,10 @@ public class NodeServiceImpl implements NodeService{
 	public List<Node> allRootNodes() {
 		Bson filter = new Document("nodeType",0);
 		return nodeDao.select(filter, Node.class);
+	}
+
+	@Override
+	public Node getNodeById(String id) {
+		return nodeDao.selectById(id);
 	}
 }

@@ -23,6 +23,6 @@
 	<!-- 配置其它所有组件的日志等级 -->
 	<root level="info">
 		<appender-ref ref="STDOUT" />
-		<appender-ref ref="FILE" />
+		<!-- <appender-ref ref="FILE" />-->
 	</root>
 </configuration>

@@ -1,7 +1,7 @@
 package restService.jersey.action;
 
-import java.util.List;
 
+import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,9 +12,10 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restService.jersey.bean.Node;
+import restService.jersey.common.BaseAction;
 import restService.jersey.common.R;
+import restService.jersey.common.ServiceFactory;
 import restService.jersey.service.NodeService;
-import restService.jersey.service.NodeServiceImpl;
 import restService.jersey.util.JsonUtil;
 
 /**
@@ -23,23 +24,21 @@ import restService.jersey.util.JsonUtil;
 @Path("/node")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class NodeAction {
+public class NodeAction extends BaseAction{
 
 	private static Logger log = LoggerFactory.getLogger(NodeAction.class);
 
-	NodeService nodeSetvice = NodeServiceImpl.getNodeService();
+	NodeService nodeSetvice = ServiceFactory.getNodeService();
 
 	@GET
-	@Path("nodes/{pId}")
-	public String getNodes(@PathParam("pId") String pId) {
-		log.info("查询目录id:{}", pId);
-		List<Node> list = nodeSetvice.allRootNodes();
-		if(!"all".equals(pId)){
-			list = nodeSetvice.listNodes(pId);
-		}
-		return R.ok().put("nodes", list).toJson();
+	@Path("nodes/{id}")
+	public String getNodes(@PathParam("id") String id) {
+		log.info("查询目录id:{}", id);
+		List<Node> chidlren = nodeSetvice.listNodes(id);
+		Node currentNode = nodeSetvice.getNodeById(id);
+		return R.ok().put("chidlren", chidlren).put("currentNode", currentNode).toJson();
 	}
-
+	
 	@POST
 	@Path("buildRoot")
 	public String getIt() {
