@@ -9,10 +9,17 @@ public class Node extends BaseBean{
 	private Integer nodeType;
 	private String tag;
 	private String description;
-	private String path;
+	private String content;
 	private String firstChild;
 	private String nextBrother;
 	private String father;
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public String getNodeName() {
 		return nodeName;
 	}
@@ -31,17 +38,11 @@ public class Node extends BaseBean{
 	public String getDescription() {
 		return description;
 	}
-	public String getPath() {
-		return path;
-	}
 	public void setTag(String tag) {
 		this.tag = tag;
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public void setPath(String path) {
-		this.path = path;
 	}
 	public String getFirstChild() {
 		return firstChild;

@@ -12,15 +12,14 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restService.jersey.bean.Node;
+import restService.jersey.bean.User;
 import restService.jersey.common.BaseAction;
 import restService.jersey.common.R;
 import restService.jersey.common.ServiceFactory;
 import restService.jersey.service.NodeService;
 import restService.jersey.util.JsonUtil;
 
-/**
- * Root resource (exposed at "myresource" path)
- */
+
 @Path("/node")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -51,6 +50,9 @@ public class NodeAction extends BaseAction{
 	@Path("newNode/{pId}")
 	public String newFile(@PathParam("pId") String pId, String json) {
 		Node node = JsonUtil.toJava(json, Node.class);
+		User user = getLoginUser();
+		node.setCreateUser(user.getId());
+		node.setUpdateUser(user.getId());
 		String id = nodeSetvice.newNode(pId, node);
 		log.info("在根目录:{}新建文件夹:{},文件Id:{}", pId, node.getNodeName(), id);
 		return R.ok().put("id", id).toJson();
@@ -61,6 +63,13 @@ public class NodeAction extends BaseAction{
 	public String deleteNode(@PathParam("pId") String pId) {
 		log.info("删除文件:{}",pId);
 		nodeSetvice.deleteNode(pId);
+		return R.ok().toJson();
+	}
+	@POST
+	@Path("updateNode/{pId}")
+	public String updateNode(@PathParam("pId") String pId,String json) {
+		Node node = JsonUtil.toJava(json, Node.class);
+		log.info("更新文件:{}",pId);
 		return R.ok().toJson();
 	}
 	@POST

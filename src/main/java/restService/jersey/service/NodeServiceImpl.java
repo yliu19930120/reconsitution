@@ -88,7 +88,6 @@ public class NodeServiceImpl implements NodeService{
 		node.setTag(Constant.ROOT_FOLDER_TAG);
 		node.setId(id);
 		node.setNodeType(NodeType.ROOT.getTypeCode());
-		node.setPath(Constant.DEFAULT_PLACE);
 		node.setFather(id);
 		nodeDao.saveOrUpdate(node);
 		return id;
@@ -100,8 +99,9 @@ public class NodeServiceImpl implements NodeService{
 		node.setDescription(Constant.DEFAULT_PLACE);
 		node.setTag(Constant.DEFAULT_PLACE);
 		node.setId(id);
-		node.setNodeType(NodeType.FOLDER.getTypeCode());
-		node.setPath(Constant.DEFAULT_PLACE);
+		if(node.getNodeType()==null){
+			node.setNodeType(NodeType.FILE.getTypeCode());
+		}
 		node.setFather(pId);
 		Node fatherNode = selectById(pId);
 		String childId = fatherNode.getFirstChild();

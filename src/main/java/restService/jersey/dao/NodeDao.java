@@ -43,6 +43,7 @@ public class NodeDao extends BaseDao<Node>{
 	}
 
 	public void deleteById(String id) {
+		log.info("删除节点:{}",id);
 		getCollection().deleteOne(new Document("id",id));
 	}
 	/**
