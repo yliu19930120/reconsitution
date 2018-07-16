@@ -22,4 +22,5 @@ public interface NodeService extends BaseService<Node>{
 	public List<Node> allRootNodes();
 	
 	public Node getNodeById(String id);
+	
 }

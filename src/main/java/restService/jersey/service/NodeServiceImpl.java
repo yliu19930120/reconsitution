@@ -2,16 +2,17 @@ package restService.jersey.service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import restService.jersey.bean.Node;
+import restService.jersey.common.BaseDao;
+import restService.jersey.common.BaseServiceImpl;
 import restService.jersey.constant.Constant;
 import restService.jersey.constant.NodeType;
 import restService.jersey.dao.NodeDao;
 import restService.jersey.util.IdUtil;
 
-public class NodeServiceImpl implements NodeService{
+public class NodeServiceImpl extends BaseServiceImpl<Node> implements NodeService{
 
 	private final static NodeServiceImpl nodeService = new NodeServiceImpl();
 	
@@ -20,66 +21,14 @@ public class NodeServiceImpl implements NodeService{
 	public static NodeServiceImpl getNodeService(){
 		return nodeService;
 	}
+	private NodeServiceImpl(){
+		
+	}
+	@Override
+	public BaseDao<Node> getBaseDao() {
+		return nodeDao;
+	}
 	
-	private NodeServiceImpl() {
-	}
-	@Override
-	public void saveOrUpdate(Node java) {
-		nodeDao.saveOrUpdate(java);
-	}
-
-	@Override
-	public void saveMany(List<Node> list) {
-		nodeDao.saveMany(list);
-		
-	}
-
-	@Override
-	public void deleteByUnique(Node java) {
-		nodeDao.deleteByUnique(java);
-		
-	}
-
-	@Override
-	public Node selectByUnique(Node java) {
-		return nodeDao.selectByUnique(java, Node.class);
-	}
-
-	@Override
-	public List<Node> select(Node filter, Bson sort) {
-		
-		return nodeDao.select(filter, sort, Node.class);
-	}
-
-	@Override
-	public List<Node> select(Node filter) {
-		return nodeDao.select(filter, Node.class);
-	}
-
-	@Override
-	public List<Node> select(Bson filter, Bson sort) {
-		return nodeDao.select(filter, sort,Node.class);
-	}
-
-	@Override
-	public List<Node> select(Bson filter) {
-		
-		return nodeDao.select(filter, Node.class);
-	}
-
-	@Override
-	public Node selectOne(Node filter) {
-		
-		return nodeDao.selectOne(filter, Node.class);
-	}
-
-	@Override
-	public Node selectOne(Bson filter) {
-
-		return nodeDao.selectOne(filter, Node.class);
-	}
-
-
 	@Override
 	public String buildRootNode(Node node) {
 		String id = IdUtil.getId();
@@ -190,4 +139,6 @@ public class NodeServiceImpl implements NodeService{
 	public Node getNodeById(String id) {
 		return nodeDao.selectById(id);
 	}
+
+	
 }

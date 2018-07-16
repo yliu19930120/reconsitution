@@ -18,13 +18,13 @@ public interface BaseService<T> {
 	
 	public List<T> select(T filter);
     
-    public List<T> select(Bson filter,Bson sort);
+    public List<T> select(Bson filter,Bson sort,final Class<T> clazz);
 	
-	public List<T> select(Bson filter);
+	public List<T> select(Bson filter,final Class<T> clazz);
 			
 	public T selectOne(T filter);
     
-    public T selectOne(Bson filter);
+    public T selectOne(Bson filter,final Class<T> clazz);
 
-
+    public void updateByNotNull(T java);
 }

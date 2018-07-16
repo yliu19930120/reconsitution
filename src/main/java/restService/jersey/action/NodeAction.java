@@ -66,10 +66,11 @@ public class NodeAction extends BaseAction{
 		return R.ok().toJson();
 	}
 	@POST
-	@Path("updateNode/{pId}")
-	public String updateNode(@PathParam("pId") String pId,String json) {
+	@Path("updateNode/{id}")
+	public String updateNode(@PathParam("id") String id,String json) {
 		Node node = JsonUtil.toJava(json, Node.class);
-		log.info("更新文件:{}",pId);
+		log.info("更新文件:{}",id);
+		nodeSetvice.updateByNotNull(node);
 		return R.ok().toJson();
 	}
 	@POST

@@ -46,7 +46,18 @@ public abstract class BaseDao<T extends BaseBean> {
 			getCollection().replaceOne(getUniqueIndex(java), doc);
 		}
 	}
-	
+	public void updateByNotNull(T java){
+		Document doc = MongoUtil.adaptToDocuemnt(java);
+		Document properties = new Document();
+		doc.forEach((k,v)->{
+			if(null!=v){
+				properties.append(k, v);
+			}
+		});
+		Document update = new Document("$set",properties);
+		getLogger().info("向表:{}更新 {}",getCollectionName(),update);
+		getCollection().updateOne(getUniqueIndex(java), update);
+	}
 	public void save(T java){
 		defaultBean(java);
 		Document doc = MongoUtil.adaptToDocuemnt(java);

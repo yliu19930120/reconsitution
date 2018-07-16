@@ -17,15 +17,15 @@ public class DocServiceTest {
 	
 	@Test
 	public void test(){
-//		String id = buildRoot();
-		String id = "4a5afcd0-0e41-46a4-b422-b0369e832d34";
-		newFolder(id);
-//		selectById("24366406-7da7-4207-a543-9e8515afb363");
-		deleteTest(id);
-		selectById("9d433bbb-7ae6-4d85-aa7e-3fe51d4eb196");
+		update();
 	}
 	
-	
+	private void update(){
+		Node node = new Node();
+		node.setNodeName("这是再次修改的文件夹");
+		node.setId("1d6a24ad-dfd9-4861-abd1-463198f44a62");
+		nodeSetvice.updateByNotNull(node);
+	}
 	public String buildRoot(){
 		Node rootFolder = new Node();
 		rootFolder.setCreateUser("yliu");
