@@ -17,14 +17,20 @@ public class DocServiceTest {
 	
 	@Test
 	public void test(){
-		update();
+		String pid = "02009101-fa6a-4f7a-aeef-e476817088b3";
+//		String id = buildRoot();
+		newFolder(pid);
+		listNodes(pid);
 	}
-	
+	private void listNodes(String id){
+		List<Node> list = nodeSetvice.listNodes(id);
+		System.out.println(JsonUtil.toJson(list));
+	}
 	private void update(){
 		Node node = new Node();
 		node.setNodeName("这是再次修改的文件夹");
 		node.setId("1d6a24ad-dfd9-4861-abd1-463198f44a62");
-		nodeSetvice.updateByNotNull(node);
+		nodeSetvice.update(node);
 	}
 	public String buildRoot(){
 		Node rootFolder = new Node();

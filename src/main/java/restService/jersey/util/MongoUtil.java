@@ -1,21 +1,19 @@
 package restService.jersey.util;
 
 
-import java.beans.IntrospectionException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
+
+import java.util.Iterator;
+import java.util.Map.Entry;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
 import com.alibaba.fastjson.JSONObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.util.JSON;
+
 
 
 
@@ -47,9 +45,21 @@ public static Logger log=LoggerFactory.getLogger( MongoUtil.class );
 	
 	public static<T> Document adaptToDocuemnt(T java){
 		JSONObject json = (JSONObject) JSONObject.toJSON(java);
-		    return new Document(json);
+		Document doc = new Document(json);
+		removeNullKey(doc);
+		return doc;
 	}
-	
+	private static void removeNullKey(Document doc){
+		Iterator<Entry<String,Object>> it = doc.entrySet().iterator();
+		while(it.hasNext()){
+			Entry<String,Object> entry = it.next();
+			if(entry.getValue()==null){
+				it.remove();
+			}else if(entry.getValue() instanceof Document){
+				removeNullKey((Document)entry.getValue());
+			}
+		}
+	}
 	public static DB getDB(String db) {
 		return new DB(mongoClient, db);
 	}

@@ -26,5 +26,6 @@ public interface BaseService<T> {
     
     public T selectOne(Bson filter,final Class<T> clazz);
 
-    public void updateByNotNull(T java);
+    public void update(T java);
+    
 }

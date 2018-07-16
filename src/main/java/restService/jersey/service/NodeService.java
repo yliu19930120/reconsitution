@@ -23,4 +23,6 @@ public interface NodeService extends BaseService<Node>{
 	
 	public Node getNodeById(String id);
 	
+	public void moveTo(String id,String targetId);
+	
 }

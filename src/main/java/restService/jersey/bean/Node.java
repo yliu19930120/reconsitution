@@ -10,8 +10,6 @@ public class Node extends BaseBean{
 	private String tag;
 	private String description;
 	private String content;
-	private String firstChild;
-	private String nextBrother;
 	private String father;
 	
 	public String getContent() {
@@ -43,18 +41,6 @@ public class Node extends BaseBean{
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getFirstChild() {
-		return firstChild;
-	}
-	public String getNextBrother() {
-		return nextBrother;
-	}
-	public void setFirstChild(String firstChild) {
-		this.firstChild = firstChild;
-	}
-	public void setNextBrother(String nextBrother) {
-		this.nextBrother = nextBrother;
 	}
 	public String getFather() {
 		return father;
