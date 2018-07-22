@@ -11,16 +11,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.alibaba.fastjson.JSON;
-
 import restService.jersey.bean.Node;
 import restService.jersey.bean.User;
-import restService.jersey.common.BaseAction;
+import restService.jersey.common.AuthAction;
 import restService.jersey.common.R;
 import restService.jersey.common.ServiceFactory;
 import restService.jersey.constant.NodeType;
@@ -31,7 +27,8 @@ import restService.jersey.util.JsonUtil;
 @Path("/node")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class NodeAction extends BaseAction{
+public class NodeAction extends AuthAction{
+	
 
 	private static Logger log = LoggerFactory.getLogger(NodeAction.class);
 
@@ -80,15 +77,6 @@ public class NodeAction extends BaseAction{
 		return R.ok().toJson();
 	}
 	@PUT
-	@Path("copyNode/{targetId}")
-	public String copyNode(@PathParam("targetId") String targetId,String json){
-		Document doc = JsonUtil.strToDoc(json);
-		String id = doc.getString("id");
-		log.info("复制文件:{}到目录:{}",id,targetId);
-		nodeSetvice.copyNode(id, targetId);
-		return R.ok().toJson();
-	}
-	@PUT
 	@Path("moveTo/{targetId}")
 	public String moveTo(@PathParam("targetId") String targetId,String json){
 		Document doc = JsonUtil.strToDoc(json);
@@ -97,4 +85,5 @@ public class NodeAction extends BaseAction{
 		nodeSetvice.moveTo(id, targetId);
 		return R.ok().toJson();
 	}
+
 }

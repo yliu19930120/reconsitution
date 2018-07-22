@@ -3,7 +3,8 @@ package restService.jersey.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSON;
+import restService.jersey.constant.StatusCode;
+import restService.jersey.util.JsonUtil;
 
 public class R extends HashMap<String, Object>{
 
@@ -18,11 +19,13 @@ public class R extends HashMap<String, Object>{
 	}
 	
 	public static R error() {
-		return error(500, "未知异常，请联系管理员");
+		return error(StatusCode.FAILED.getCode(), StatusCode.FAILED.getMsg());
 	}
-	
+	public static R noLogin() {
+		return error(StatusCode.NOT_LOGIN.getCode(), StatusCode.NOT_LOGIN.getMsg());
+	}
 	public static R error(String msg) {
-		return error(500, msg);
+		return error(StatusCode.FAILED.getCode(), msg);
 	}
 	
 	public static R error(int code, String msg) {
@@ -53,6 +56,6 @@ public class R extends HashMap<String, Object>{
 		return this;
 	}
 	public String toJson(){
-		return JSON.toJSONString(this);
+		return JsonUtil.toJson(this);
 	}
 }

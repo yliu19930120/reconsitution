@@ -61,10 +61,6 @@ public class NodeServiceImpl extends BaseServiceImpl<Node> implements NodeServic
 		return select(new Document("father",pId), Node.class);
 	}
 	@Override
-	public void copyNode(String id, String targetId) {
-		
-	}
-	@Override
 	public List<Node> allRootNodes() {
 		Node node = new Node();
 		node.setNodeType(NodeType.ROOT.getTypeCode());

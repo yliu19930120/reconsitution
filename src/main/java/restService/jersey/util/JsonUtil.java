@@ -1,19 +1,26 @@
 package restService.jersey.util;
 
+
 import java.util.Map;
-
 import org.bson.Document;
-
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+
 
 public class JsonUtil {
+	
+	private final static String DEFAULT_DATE_FORMAT = "yyyyMMdd HH:mm:ss";
+	static{
+		JSON.DEFFAULT_DATE_FORMAT = DEFAULT_DATE_FORMAT;
+	}
+	
 	/**
 	 * 转JSON
 	 * @param obj
 	 * @return
 	 */
 	 public static String toJson(Object obj){
-		 return JSON.toJSONString(obj);
+		 return JSON.toJSONString(obj,SerializerFeature.WriteDateUseDateFormat);
 	 };
 	 /**
 	  * 转实体
