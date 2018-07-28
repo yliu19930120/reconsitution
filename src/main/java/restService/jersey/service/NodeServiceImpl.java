@@ -16,7 +16,7 @@ public class NodeServiceImpl extends BaseServiceImpl<Node> implements NodeServic
 	
 	private NodeDao nodeDao = NodeDao.getNodeDao();
 	
-	public static NodeServiceImpl getNodeService(){
+	public static NodeServiceImpl getInstance(){
 		return nodeService;
 	}
 	private NodeServiceImpl(){

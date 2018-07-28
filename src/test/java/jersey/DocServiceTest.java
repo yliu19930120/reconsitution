@@ -13,7 +13,7 @@ import restService.jersey.util.JsonUtil;
 
 public class DocServiceTest {
 	
-	NodeService nodeSetvice = NodeServiceImpl.getNodeService();
+	NodeService nodeSetvice = NodeServiceImpl.getInstance();
 	
 	@Test
 	public void test(){

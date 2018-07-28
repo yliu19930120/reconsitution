@@ -6,7 +6,7 @@ import restService.jersey.bean.Node;
 import restService.jersey.bean.User;
 import restService.jersey.common.BaseDao;
 import restService.jersey.common.BaseServiceImpl;
-import restService.jersey.common.ServiceFactory;
+import restService.jersey.common.factory.ServiceFactory;
 import restService.jersey.dao.UserDao;
 import restService.jersey.tools.MD5;
 
@@ -16,7 +16,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	
 	private UserDao userDao = UserDao.getUserDao();
 	
-	public static UserServiceImpl getUserService(){
+	public static UserServiceImpl getInstance(){
 		return userService;
 	}
 	

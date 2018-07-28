@@ -18,7 +18,7 @@ import restService.jersey.bean.Node;
 import restService.jersey.bean.User;
 import restService.jersey.common.AuthAction;
 import restService.jersey.common.R;
-import restService.jersey.common.ServiceFactory;
+import restService.jersey.common.factory.ServiceFactory;
 import restService.jersey.constant.NodeType;
 import restService.jersey.service.NodeService;
 import restService.jersey.util.JsonUtil;

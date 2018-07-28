@@ -3,7 +3,7 @@ package jersey;
 import org.junit.Test;
 
 import restService.jersey.bean.User;
-import restService.jersey.common.ServiceFactory;
+import restService.jersey.common.factory.ServiceFactory;
 import restService.jersey.service.UserService;
 
 public class UserServiceTest {

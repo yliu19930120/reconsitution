@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 import restService.jersey.bean.User;
 import restService.jersey.common.BaseAction;
 import restService.jersey.common.R;
-import restService.jersey.common.ServiceFactory;
+import restService.jersey.common.factory.ServiceFactory;
 import restService.jersey.constant.StatusCode;
 import restService.jersey.service.UserService;
 import restService.jersey.util.IdUtil;
